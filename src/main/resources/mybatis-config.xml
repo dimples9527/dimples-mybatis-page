@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC
+	"-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 属性 -->
+	<properties>
+		<property name="database.driver" value="com.mysql.jdbc.Driver" />
+		<property name="database.url" value="jdbc:mysql://127.0.0.1:3306/db_dimples_test" />
+		<property name="database.username" value="root" />
+		<property name="database.password" value="ZHONG9602.class" />
+	</properties>
+
+	<!-- 别名 -->
+	<typeAliases>
+		<typeAlias alias="user" type="com.dimples.mybatis.pojo.User" />
+	</typeAliases>
+	<!-- 数据库环境 -->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${database.driver}" />
+				<property name="url" value="${database.url}" />
+				<property name="username" value="${database.username}" />
+				<property name="password" value="${database.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<!-- 映射文件 -->
+
+</configuration>
+
