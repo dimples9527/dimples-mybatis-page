@@ -1,172 +1,119 @@
 package com.dimples.plugins.metadata;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.function.Predicate;
+
+import lombok.Data;
 
 /**
+ * 分页参数
+ *
  * @author zhongyj <1126834403@qq.com><br/>
- * @date 2020/5/13
+ * @date 2020/5/17
  */
-@SuppressWarnings("all")
-public class Page<T> {
+@Data
+public class Page<T> implements IPage<T> {
 
     /**
-     * 查询数据列表
+     * 当前页码
      */
-    private List<T> records = Collections.emptyList();
+    private Integer current;
 
     /**
-     * 总数
+     * 每页限制条数
      */
-    private int total = 0;
+    private Integer size;
 
     /**
-     * 每页显示条数，默认 10
+     * 总条数，插件会回填这个值
      */
-    private int size = 10;
+    private Integer total;
 
     /**
-     * 当前页
+     * 总页数， 插件会回填这个值
      */
-    private int current = 1;
+    private Integer pages;
 
     /**
-     * 排序字段信息
+     * 查询记录
      */
-    private List<OrderItem> orders = new ArrayList<>();
+    private List<T> records;
 
     /**
-     * 当前分页总页数
+     * 是否进行 count 查询
      */
-    private int pages;
-
+    private boolean searchCount = true;
 
     /**
-     * 分页构造函数
-     *
-     * @param current 当前页
-     * @param size    每页显示条数
+     * 是否启动插件，如果不启动，则不作分页
      */
-    public Page(int current, int size) {
-        this(current, size, 0);
-    }
+    private Boolean useFlag;
 
+    /**
+     * 是否检测页码的有效性，如果为true,而页码大于最大页数，则抛出异常
+     */
+    private Boolean checkFlag;
 
-    public Page(int current, int size, int total) {
-        if (current > 1) {
-            this.current = current;
-        }
-        this.size = size;
-        this.total = total;
-    }
+    /**
+     * 是否清除最后order by后面的语句
+     */
+    private Boolean cleanOrderBy;
 
-    public List<T> getRecords() {
-        return this.records;
-    }
+    /*==================================== Constructor ============================================*/
 
-    public Page<T> setRecords(List<T> records) {
-        this.records = records;
-        return this;
-    }
-
-    public int getTotal() {
-        return this.total;
-    }
-
-    public Page<T> setTotal(int total) {
-        this.total = total;
-        return this;
-    }
-
-    public int getSize() {
-        return this.size;
-    }
-
-    public Page<T> setSize(int size) {
-        this.size = size;
-        return this;
-    }
-
-    public int getCurrent() {
-        return this.current;
-    }
-
-    public Page<T> setCurrent(int current) {
+    public Page(Integer current, Integer size) {
         this.current = current;
-        return this;
+        this.size = size;
     }
 
-    /**
-     * 当前分页总页数
-     */
-    public long getPages() {
-        if (getSize() == 0) {
-            return 0L;
+    @Override
+    public boolean searchCount() {
+        if (total < 0) {
+            return false;
         }
-        long pages = getTotal() / getSize();
-        if (getTotal() % getSize() != 0) {
-            pages++;
-        }
-        return pages;
+        return searchCount;
     }
 
-    /**
-     * 内部什么也不干
-     * <p>只是为了 json 反序列化时不报错</p>
-     */
-    public Page<T> setPages(long pages) {
-        // to do nothing
+    public Page<T> setSearchCount(boolean searchCount) {
+        this.searchCount = searchCount;
         return this;
     }
 
-    /**
-     * 移除符合条件的条件
-     *
-     * @param filter 条件判断
-     */
-    private void removeOrder(Predicate<OrderItem> filter) {
-        for (int i = orders.size() - 1; i >= 0; i--) {
-            if (filter.test(orders.get(i))) {
-                orders.remove(i);
-            }
-        }
-    }
 
     /**
-     * 添加新的排序条件，构造条件可以使用工厂：
-     *
-     * @param items 条件
-     * @return 返回分页参数本身
+     * 默认启用分页插件
      */
-    public Page<T> addOrder(OrderItem... items) {
-        orders.addAll(Arrays.asList(items));
-        return this;
-    }
+    public static final boolean DEFAULT_USER_FLAG = true;
 
     /**
-     * 添加新的排序条件，构造条件可以使用工厂：
-     *
-     * @param items 条件
-     * @return 返回分页参数本身
+     * 默认页码
      */
-    public Page<T> addOrder(List<OrderItem> items) {
-        orders.addAll(items);
-        return this;
-    }
+    public static final long DEFAULT_PAGE = 1L;
 
-    public List<OrderItem> orders() {
-        return getOrders();
-    }
+    /**
+     * 默认页大小
+     */
+    public static final long DEFAULT_PAGE_SIZE = 500L;
 
-    public List<OrderItem> getOrders() {
-        return orders;
-    }
+    /**
+     * 默认检测页码参数
+     */
+    public static final boolean DEFAULT_CHECK_FLAG = true;
 
-    public void setOrders(List<OrderItem> orders) {
-        this.orders = orders;
-    }
+    /**
+     *
+     */
+    public static final boolean DEFAULT_CLEAN_ORDER_BY = true;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

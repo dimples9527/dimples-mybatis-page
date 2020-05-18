@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dimples.test.mapper.DrugMapper">
+	<resultMap id="BaseResultMap" type="com.dimples.test.po.Drug">
+		<!--@mbg.generated-->
+		<!--@Table tb_test_drug-->
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="primary_id" jdbcType="VARCHAR" property="primaryId" />
+		<result column="case_id" jdbcType="VARCHAR" property="caseId" />
+		<result column="drug_seq" jdbcType="VARCHAR" property="drugSeq" />
+		<result column="role_cod" jdbcType="VARCHAR" property="roleCod" />
+		<result column="drugname" jdbcType="VARCHAR" property="drugname" />
+		<result column="prod_ai" jdbcType="LONGVARCHAR" property="prodAi" />
+		<result column="val_vbm" jdbcType="VARCHAR" property="valVbm" />
+		<result column="route" jdbcType="VARCHAR" property="route" />
+		<result column="dose_vbm" jdbcType="VARCHAR" property="doseVbm" />
+		<result column="cum_dose_chr" jdbcType="VARCHAR" property="cumDoseChr" />
+		<result column="cum_dose_unit" jdbcType="VARCHAR" property="cumDoseUnit" />
+		<result column="dechal" jdbcType="VARCHAR" property="dechal" />
+		<result column="rechal" jdbcType="VARCHAR" property="rechal" />
+		<result column="lot_num" jdbcType="VARCHAR" property="lotNum" />
+		<result column="exp_dt" jdbcType="VARCHAR" property="expDt" />
+		<result column="nda_num" jdbcType="VARCHAR" property="ndaNum" />
+		<result column="dose_amt" jdbcType="VARCHAR" property="doseAmt" />
+		<result column="dose_unit" jdbcType="VARCHAR" property="doseUnit" />
+		<result column="dose_form" jdbcType="VARCHAR" property="doseForm" />
+		<result column="dose_freq" jdbcType="VARCHAR" property="doseFreq" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		<!--@mbg.generated-->
+		id, primary_id, case_id, drug_seq, role_cod, drugname, prod_ai, val_vbm, route, dose_vbm,
+		cum_dose_chr, cum_dose_unit, dechal, rechal, lot_num, exp_dt, nda_num, dose_amt,
+		dose_unit, dose_form, dose_freq
+	</sql>
+	<select id="listPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM tb_test_drug
+	</select>
+</mapper>
