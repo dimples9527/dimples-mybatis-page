@@ -1,9 +1,9 @@
-package com.dimples.test.service;
+package com.dimples.service;
 
 import com.dimples.plugins.metadata.OrderItem;
 import com.dimples.plugins.metadata.Page;
-import com.dimples.test.mapper.DrugMapper;
-import com.dimples.test.po.Drug;
+import com.dimples.mapper.DrugMapper;
+import com.dimples.po.Drug;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

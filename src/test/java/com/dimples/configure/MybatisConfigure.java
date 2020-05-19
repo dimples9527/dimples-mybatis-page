@@ -1,4 +1,4 @@
-package com.dimples.test.configure;
+package com.dimples.configure;
 
 import com.dimples.plugins.PageInterceptor;
 

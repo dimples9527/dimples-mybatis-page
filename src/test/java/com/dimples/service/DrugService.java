@@ -1,7 +1,7 @@
-package com.dimples.test.service;
+package com.dimples.service;
 
 import com.dimples.plugins.metadata.Page;
-import com.dimples.test.po.Drug;
+import com.dimples.po.Drug;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>

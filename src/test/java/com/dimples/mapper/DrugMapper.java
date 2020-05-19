@@ -1,7 +1,7 @@
-package com.dimples.test.mapper;
+package com.dimples.mapper;
 
 import com.dimples.plugins.metadata.Page;
-import com.dimples.test.po.Drug;
+import com.dimples.po.Drug;
 
 import org.apache.ibatis.annotations.Mapper;
 
