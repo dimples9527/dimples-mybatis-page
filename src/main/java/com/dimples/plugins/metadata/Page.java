@@ -92,9 +92,8 @@ public class Page<T> implements IPage<T> {
     }
 
     @Override
-    public Page<T> setTotal(long total) {
+    public void setTotal(long total) {
         this.total = total;
-        return this;
     }
 
     @Override
@@ -114,9 +113,8 @@ public class Page<T> implements IPage<T> {
     }
 
     @Override
-    public Page<T> setRecords(List<T> records) {
+    public void setRecords(List<T> records) {
         this.records = records;
-        return this;
     }
 
     @Override
@@ -136,11 +134,9 @@ public class Page<T> implements IPage<T> {
      * 添加新的排序条件，构造条件可以使用工厂：{@link OrderItem#build(String, boolean)}
      *
      * @param items 条件
-     * @return 返回分页参数本身
      */
-    public Page<T> addOrder(OrderItem... items) {
+    public void addOrder(OrderItem... items) {
         orders.addAll(Arrays.asList(items));
-        return this;
     }
 
     /**

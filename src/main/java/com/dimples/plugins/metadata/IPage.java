@@ -19,9 +19,8 @@ public interface IPage<T> {
      * 设置当前满足条件总行数
      *
      * @param total 总数
-     * @return IPage<T>
      */
-    IPage<T> setTotal(long total);
+    void setTotal(long total);
 
     /**
      * 当前分页总页数
@@ -56,8 +55,10 @@ public interface IPage<T> {
 
     /**
      * 设置分页记录列表
+     *
+     * @param records List
      */
-    IPage<T> setRecords(List<T> records);
+    void setRecords(List<T> records);
 
     /**
      * 获取排序信息，排序的字段和正反序
@@ -86,6 +87,9 @@ public interface IPage<T> {
     /**
      * 内部什么也不干
      * <p>只是为了 json 反序列化时不报错</p>
+     *
+     * @param pages long
+     * @return IPage
      */
     default IPage<T> setPages(long pages) {
         // to do nothing
