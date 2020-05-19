@@ -1,5 +1,6 @@
 package com.dimples.plugins.util;
 
+import com.dimples.plugins.metadata.OrderItem;
 import com.dimples.plugins.metadata.Page;
 
 import org.apache.ibatis.reflection.MetaObject;
@@ -8,8 +9,10 @@ import org.apache.ibatis.reflection.SystemMetaObject;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 
@@ -91,6 +94,25 @@ public class PageUtil {
             }
         }
         return null;
+    }
+
+    /**
+     * 处理分页中的排序
+     *
+     * @param page   Page
+     * @param result StringBuilder
+     */
+    public static void buildOrder(Page<?> page, StringBuilder result) {
+        if (CollectionUtil.isNotEmpty(page.getOrders())) {
+            List<OrderItem> orders = page.getOrders();
+            for (OrderItem order : orders) {
+                if (order.isAsc()) {
+                    result.append(" ORDER BY ").append(order.getColumn()).append(" ASC");
+                } else {
+                    result.append(" ORDER BY ").append(order.getColumn()).append(" DESC");
+                }
+            }
+        }
     }
 }
 

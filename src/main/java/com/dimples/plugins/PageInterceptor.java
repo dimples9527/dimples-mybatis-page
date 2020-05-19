@@ -95,7 +95,7 @@ public class PageInterceptor implements Interceptor {
             }
         }
         // 修改分页SQL
-        return preparePageSql(invocation, metaObject, mappedStatement, boundSql, page);
+        return preparePageSql(invocation, metaObject, boundSql, page);
     }
 
     /**
@@ -103,12 +103,11 @@ public class PageInterceptor implements Interceptor {
      *
      * @param invocation      Invocation
      * @param metaObject      MetaObject
-     * @param mappedStatement MappedStatement
      * @param boundSql        BoundSql
      * @param page            Page
      * @return Object
      */
-    private Object preparePageSql(Invocation invocation, MetaObject metaObject, MappedStatement mappedStatement, BoundSql boundSql, Page<?> page) throws Exception {
+    private Object preparePageSql(Invocation invocation, MetaObject metaObject, BoundSql boundSql, Page<?> page) throws Exception {
         IDialect dialect = null;
         if (StrUtil.isNotBlank(dialectType)) {
             switch (dialectType.toLowerCase()) {
