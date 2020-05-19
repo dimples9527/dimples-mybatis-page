@@ -1,8 +1,7 @@
 package com.dimples.test.service;
 
+import com.dimples.plugins.metadata.Page;
 import com.dimples.test.po.Drug;
-
-import java.util.List;
 
 /**
  * @author zhongyj <1126834403@qq.com><br/>
@@ -10,6 +9,6 @@ import java.util.List;
  */
 public interface DrugService {
 
-    List<Drug> listPage();
+    Page<Drug> listPage();
 
 }

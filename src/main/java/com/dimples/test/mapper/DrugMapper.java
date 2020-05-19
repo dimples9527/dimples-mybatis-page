@@ -1,5 +1,6 @@
 package com.dimples.test.mapper;
 
+import com.dimples.plugins.metadata.Page;
 import com.dimples.test.po.Drug;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -13,6 +14,6 @@ import java.util.List;
 @Mapper
 public interface DrugMapper {
 
-    List<Drug> listPage();
+    List<Drug> listPage(Page<Drug> page);
 
 }

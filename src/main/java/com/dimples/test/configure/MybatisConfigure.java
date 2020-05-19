@@ -14,7 +14,9 @@ public class MybatisConfigure {
 
     @Bean
     public PageInterceptor pageInterceptor() {
-        return new PageInterceptor();
+        PageInterceptor pageInterceptor = new PageInterceptor();
+        pageInterceptor.setDialectType("mysql");
+        return pageInterceptor;
     }
 
 }

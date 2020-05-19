@@ -1,5 +1,7 @@
 package com.dimples.test.service;
 
+import com.alibaba.fastjson.JSON;
+import com.dimples.plugins.metadata.Page;
 import com.dimples.test.po.Drug;
 
 import org.junit.Test;
@@ -8,11 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
-
-import static org.junit.Assert.*;
 
 @Slf4j
 @RunWith(SpringRunner.class)
@@ -24,7 +22,7 @@ public class DrugServiceTest {
 
     @Test
     public void listPage() {
-        List<Drug> drugs = drugService.listPage();
-        log.info(String.valueOf(drugs.size()));
+        Page<Drug> drugs = drugService.listPage();
+        log.info(JSON.toJSONString(drugs));
     }
 }

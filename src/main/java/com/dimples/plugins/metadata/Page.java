@@ -1,5 +1,9 @@
 package com.dimples.plugins.metadata;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.Lists;
+
+import java.util.Arrays;
 import java.util.List;
 
 import lombok.Data;
@@ -16,51 +20,55 @@ public class Page<T> implements IPage<T> {
     /**
      * 当前页码
      */
-    private Integer current;
+    private long current = 1L;
 
     /**
      * 每页限制条数
      */
-    private Integer size;
+    private long size = 500L;
 
     /**
      * 总条数，插件会回填这个值
      */
-    private Integer total;
+    private long total = 0L;
 
     /**
-     * 总页数， 插件会回填这个值
+     * 排序字段信息
      */
-    private Integer pages;
+    private List<OrderItem> orders = Lists.newArrayList();
 
     /**
      * 查询记录
      */
-    private List<T> records;
+    private List<T> records = Lists.newArrayList();
 
     /**
      * 是否进行 count 查询
      */
+    @JsonIgnore
     private boolean searchCount = true;
 
     /**
      * 是否启动插件，如果不启动，则不作分页
      */
-    private Boolean useFlag;
+    @JsonIgnore
+    private Boolean useFlag = true;
 
     /**
      * 是否检测页码的有效性，如果为true,而页码大于最大页数，则抛出异常
      */
-    private Boolean checkFlag;
+    @JsonIgnore
+    private Boolean checkFlag = true;
 
     /**
      * 是否清除最后order by后面的语句
      */
-    private Boolean cleanOrderBy;
+    @JsonIgnore
+    private Boolean cleanOrderBy = true;
 
     /*==================================== Constructor ============================================*/
 
-    public Page(Integer current, Integer size) {
+    public Page(long current, long size) {
         this.current = current;
         this.size = size;
     }
@@ -78,31 +86,73 @@ public class Page<T> implements IPage<T> {
         return this;
     }
 
+    @Override
+    public long getTotal() {
+        return this.total;
+    }
+
+    @Override
+    public Page<T> setTotal(long total) {
+        this.total = total;
+        return this;
+    }
+
+    @Override
+    public long getSize() {
+        return this.size;
+    }
+
+    @Override
+    public Page<T> setSize(long size) {
+        this.size = size;
+        return this;
+    }
+
+    @Override
+    public List<T> getRecords() {
+        return this.records;
+    }
+
+    @Override
+    public Page<T> setRecords(List<T> records) {
+        this.records = records;
+        return this;
+    }
+
+    @Override
+    public List<OrderItem> orders() {
+        return getOrders();
+    }
+
+    public List<OrderItem> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderItem> orders) {
+        this.orders = orders;
+    }
 
     /**
-     * 默认启用分页插件
-     */
-    public static final boolean DEFAULT_USER_FLAG = true;
-
-    /**
-     * 默认页码
-     */
-    public static final long DEFAULT_PAGE = 1L;
-
-    /**
-     * 默认页大小
-     */
-    public static final long DEFAULT_PAGE_SIZE = 500L;
-
-    /**
-     * 默认检测页码参数
-     */
-    public static final boolean DEFAULT_CHECK_FLAG = true;
-
-    /**
+     * 添加新的排序条件，构造条件可以使用工厂：{@link OrderItem#build(String, boolean)}
      *
+     * @param items 条件
+     * @return 返回分页参数本身
      */
-    public static final boolean DEFAULT_CLEAN_ORDER_BY = true;
+    public Page<T> addOrder(OrderItem... items) {
+        orders.addAll(Arrays.asList(items));
+        return this;
+    }
+
+    /**
+     * 添加新的排序条件，构造条件可以使用工厂：{@link OrderItem#build(String, boolean)}
+     *
+     * @param items 条件
+     * @return 返回分页参数本身
+     */
+    public Page<T> addOrder(List<OrderItem> items) {
+        orders.addAll(items);
+        return this;
+    }
 
 }
 
