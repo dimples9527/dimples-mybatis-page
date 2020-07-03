@@ -1,8 +1,9 @@
-package com.dimples.test.service;
+package com.dimples;
 
 import com.alibaba.fastjson.JSON;
 import com.dimples.plugins.metadata.Page;
-import com.dimples.test.po.Drug;
+import com.dimples.po.Drug;
+import com.dimples.service.DrugService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

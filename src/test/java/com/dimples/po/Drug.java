@@ -1,4 +1,4 @@
-package com.dimples.test.po;
+package com.dimples.po;
 
 import java.io.Serializable;
 
